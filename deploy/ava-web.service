@@ -1,0 +1,17 @@
+[Unit]
+Description=Ava call page and token server
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=ava
+Group=ava
+WorkingDirectory=/opt/ava/app
+EnvironmentFile=/etc/ava/ava.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/ava/app/.venv/bin/python web/server.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

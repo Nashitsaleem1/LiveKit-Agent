@@ -1,0 +1,16 @@
+[Unit]
+Description=Ava mock Claude webhook (stand-in for the company's Claude setup)
+After=network.target
+
+[Service]
+User=ava
+Group=ava
+WorkingDirectory=/opt/ava/app
+EnvironmentFile=/etc/ava/ava.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/ava/app/.venv/bin/python mocks/claude_webhook.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,21 @@
+[Unit]
+Description=Ava voice agent (LiveKit)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=ava
+Group=ava
+WorkingDirectory=/opt/ava/app
+EnvironmentFile=/etc/ava/ava.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/ava/app/.venv/bin/python src/agent.py start
+# Restart automatically if it crashes; always start on boot (see [Install])
+Restart=always
+RestartSec=5
+# On stop/restart, let calls in progress finish (graceful drain) before killing
+KillSignal=SIGTERM
+TimeoutStopSec=120
+
+[Install]
+WantedBy=multi-user.target
